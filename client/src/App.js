@@ -6,7 +6,22 @@ import Login from "./app/auth/Login";
 import Register from "./app/auth/Register";
 import { Provider } from "react-redux";
 import { store } from "./store";
+import setAuthToken from "./utils/setAuthToken";
+import { loadUser } from "./actions/auth.actions";
+import { useEffect } from "react";
+import { LOGOUT } from "./constants/actionTypes";
 function App() {
+  useEffect(() => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+    store.dispatch(loadUser());
+
+    window.addEventListener("storage", () => {
+      if (!localStorage.token) store.dispatch({ type: LOGOUT });
+    });
+  }, []);
+
   return (
    <Provider store={store}>
     <Router>

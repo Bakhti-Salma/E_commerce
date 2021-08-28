@@ -5,7 +5,14 @@ const jwt = require('jsonwebtoken');
 const Address = require ("../models/address.models");
 const Order = require ("../models/order.models");
 const verifyToken = require("../middlewares/verifyToken");
-
+router.get("/authcheck", verifyToken, async (req, res) => {
+    try {
+      const user = await User.findById(req.verifiedUser._id);
+      return res.status(200).json({ user: user });
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  });
 router.post('/login' , async(req,res) => {
     
     try{

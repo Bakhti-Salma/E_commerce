@@ -2,7 +2,9 @@ import React,{useState} from 'react'
 import { connect } from "react-redux";
 import { login } from "../../../actions/auth.actions";
 import PropTypes from "prop-types";
-const Login = ({login}) => {
+import { useHistory } from "react-router-dom";
+const Login = ({login,auth}) => {
+  let history = useHistory();
   const [LoginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -14,9 +16,10 @@ const Login = ({login}) => {
   const onSubmitData = async (e) => {
     e.preventDefault();
     await login(LoginData);
-    
   };
-  
+  if (auth.isAuthenticated) {
+    history.push("/");
+  }
     return (
         <div class="w-full h-screen flex">
     <img src="https://images.unsplash.com/photo-1540569876033-6e5d046a1d77?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="background" class="object-cover object-center h-screen w-7/12"/>
@@ -64,10 +67,10 @@ const Login = ({login}) => {
 }
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  
+  auth: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
-  
+  auth: state.authState,
 });
 
 const mapDispatchToProps = {

@@ -1,6 +1,11 @@
 import React,{useState} from 'react'
-import axios from "axios"
-const Register = () => {
+import { connect } from "react-redux";
+import { register } from "../../../actions/auth.actions";
+import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
+
+const Register = ({register,auth}) => {
+  let history = useHistory();
     const [RegisterData, setRegisterData] = useState({
         firstName: "",
         lastName: "",
@@ -15,31 +20,23 @@ const Register = () => {
       const onChangeData = (e) => {
         setRegisterData({ ...RegisterData, [e.target.name]: e.target.value });
       };
-	  const onSubmitData = async (e) => {
-		  e.preventDefault();
-		  const config = {
-			  headers :{
-				  "Content-type": "application/json",
-			  },
-		  };
-		  if (RegisterData.password === RegisterData.confirmPassword) {
-			const res =await axios.post(
-				"http://localhost:8000/auth/register",
-				RegisterData,
-				config
-			);
-      	console.log(res);
-			 } 
-			 else {
-			console.log("password don't match ");
-		  }
-		};
-	  
+      const onSubmitData = async (e) => {
+        e.preventDefault();
+        if (RegisterData.password === RegisterData.confirmPassword) {
+          await register(RegisterData);
+          history.push("/login");
+        } else {
+          console.log("password don't match ");
+        }
+      };
+      if (auth.isAuthenticated) {
+        history.push("/");
+      }
     return (
         <div class="flex items-center justify-center">
       <div class="w-full max-w-md">
         <form
-          onSubmit={(e) => onSubmitData(e)}
+           onSubmit={(e) => onSubmitData(e)}
           class="bg-secondary-tint shadow-lg rounded px-12 pt-6 pb-8 mb-4">
           <div class="text-3xl font-bold text-yellow-600 mb-2">
             Create Account
@@ -208,5 +205,19 @@ const Register = () => {
     </div> 
     )
 }
+Register.propTypes = {
+  register: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
 
-export default Register;
+
+const mapStateToProps = (state) => ({
+  auth: state.authState,
+});
+
+const mapDispatchToProps = {
+  register,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
+
