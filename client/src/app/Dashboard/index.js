@@ -12,7 +12,7 @@ const Dashboard = () => {
         <div className="w-full">
         <Topbar/>
         <switch>
-          <Route exact path="/dashboard" component={Home} ></Route>
+          <Route exact path="/dashboard/" component={Home} ></Route>
         </switch>
           </div>
           </div>

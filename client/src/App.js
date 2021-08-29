@@ -24,19 +24,18 @@ function App() {
   }, []);
 
   return (
-   <Provider store={store}>
-    <Router>
-    <Header/>
-    <Switch>
-      <Route exact path="/" component={Landing}/>
-      <Route exact path="/login" component={Login}/>
-      <Route exact path="/register" component={Register}/>
-      <Route component={Dashboard} />
-    </Switch>
-      <Landing/>
-     <Footer/>
-     </Router>
-      </Provider>
+    <Provider store={store}>
+      <Router>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route component={Dashboard} />
+        </Switch>
+        <Footer />
+      </Router>
+    </Provider>
   );
 }
 

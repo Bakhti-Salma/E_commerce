@@ -19,8 +19,7 @@ const Header = (auth) => {
           {auth.isAuthenticated ? (
             <div className="ml-auto flex justify-between items-center gap-4">
               <Link
-                to="/dashboard"
-                className="ml-auto flex justify-between items-center gap-4">
+                to="/dashboard">
                 Dashboard
               </Link>
             </div>
