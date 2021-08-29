@@ -5,6 +5,30 @@ module.exports = {
   presets: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    extend: {
+      colors: {
+        primary: "#2242A7",
+        "primary-shade": "#e8eaf3 ",
+        "primary-tint": "#305EF2",
+        secondary: "#EFF2F5",
+        "secondary-shade": "#B1B3B5",
+        "secondary-tint": "#ffffff",
+        danger: "#e0142e",
+        "danger-tint": "#ED1532",
+        "danger-shade": "#C7122A",
+        success: "#00941F",
+        "success-shade": "#007A1B",
+        "success-tint": "#00A123",
+        dark: "#394256",
+      },
+    },
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
+    },
     screens: {
       sm: '640px',
       md: '768px',
